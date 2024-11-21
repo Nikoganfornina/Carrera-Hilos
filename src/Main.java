@@ -177,7 +177,7 @@ public class Main {
 
         //----------------------------------------------
 
-
+        
         ventana.setVisible(true);
 
 
@@ -247,9 +247,6 @@ public class Main {
     private static void resetearPosiciones(JLabel coche, int x, int y) {
         coche.setLocation(x, y);
     }
-
-
-
 
 
 }

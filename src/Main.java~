@@ -137,13 +137,13 @@ public class Main {
                 System.out.println("¡Carrera iniciada!");
                 // Create threads for each car
                 Thread car1Thread = new Thread(new Runcar(coche1, 50, 50, 250));
-                coche1.setText("COCHE AZUL ");
+                coche1.setText("COCHE AZUL   ");
                 Thread car2Thread = new Thread(new Runcar(coche2, 50, 50, 320));
                 coche2.setText("COCHE MORADO ");
                 Thread car3Thread = new Thread(new Runcar(coche3, 50, 50, 390));
                 coche3.setText("COCHE BLANCO ");
                 Thread car4Thread = new Thread(new Runcar(coche4, 50, 50, 470));
-                coche4.setText("COCHE ROJO");
+                coche4.setText("COCHE ROJO   ");
 
                 // Start the threads
                 car1Thread.start();
@@ -177,6 +177,16 @@ public class Main {
 
         //----------------------------------------------
 
+
+        JLabel puntuacionLabel = new JLabel("Puntuación: 0");
+        puntuacionLabel.setFont(new Font("Arial", Font.PLAIN, 50)); // Tamaño grande, ajusta a tu gusto
+        puntuacionLabel.setForeground(Color.WHITE); // Blanco para que resalte en el fondo oscuro
+        puntuacionLabel.setBounds(400, 250, 300, 50); // Centrado, ajusta la posición según necesites
+
+        // Agregar el label a la ventana
+
+        ventana.add(puntuacionLabel);
+        
 
         ventana.setVisible(true);
 
@@ -247,9 +257,6 @@ public class Main {
     private static void resetearPosiciones(JLabel coche, int x, int y) {
         coche.setLocation(x, y);
     }
-
-
-
 
 
 }
