@@ -25,7 +25,7 @@ public class Main {
         ImageIcon Botonapso2 = redimensionarImagen("images/exit_button.png", 0.4);
 
         ImageIcon setTittle = redimensionarImagen("images/Tittle.png", 0.8);
-        // Create the JLabels for the images
+
         JLabel coche1 = new JLabel(setcoche1);
         JLabel coche2 = new JLabel(setcoche2);
         JLabel coche3 = new JLabel(setcoche3);
@@ -49,7 +49,6 @@ public class Main {
 
         posicionarImagen(Salir, 750, 30);
 
-        // Add the images to the window
         ventana.add(coche1);
         ventana.add(coche2);
         ventana.add(coche3);
@@ -109,7 +108,6 @@ public class Main {
             }
         });
 
-        // Make the window visible
         ventana.setVisible(true);
 
     }
@@ -121,11 +119,9 @@ public class Main {
         int anchoOriginal = imagenOriginal.getIconWidth();
         int altoOriginal = imagenOriginal.getIconHeight();
 
-        // Calculate new dimensions
         int nuevoAncho = (int) (anchoOriginal * porcentaje);
         int nuevoAlto = (int) (altoOriginal * porcentaje);
 
-        // Resize the image
         Image imagenRedimensionada = imagenOriginal.getImage().getScaledInstance(
                 nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH
         );
@@ -141,13 +137,10 @@ public class Main {
     public static void addBackground(JFrame frame, String imagePath) {
         ImageIcon fondo = new ImageIcon(imagePath); // Load the background image
 
-        // Create a JLabel to hold the background image
         JLabel backgroundLabel = new JLabel(fondo);
 
-        // Set the background image to cover the entire frame
         backgroundLabel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
 
-        // Add the background image first, so it stays behind other components
         frame.add(backgroundLabel);
     }
 
