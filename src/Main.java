@@ -1,3 +1,4 @@
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,6 +22,8 @@ public class Main {
 
         ImageIcon Botonapso = redimensionarImagen("images/Boton_Empezar.png", 0.3);
 
+        ImageIcon Botonapso2 = redimensionarImagen("images/exit_button.png", 0.4);
+
         ImageIcon setTittle = redimensionarImagen("images/Tittle.png", 0.8);
         // Create the JLabels for the images
         JLabel coche1 = new JLabel(setcoche1);
@@ -32,6 +35,8 @@ public class Main {
 
         JLabel Boton = new JLabel(Botonapso);
 
+        JLabel Salir = new JLabel(Botonapso2);
+
         // Position the images
         posicionarImagen(coche1, 50, 250);
         posicionarImagen(coche2, 50, 320);
@@ -41,6 +46,9 @@ public class Main {
         posicionarImagen(Titlle, 300, 20);
 
         posicionarImagen(Boton, 100, 50);
+
+        posicionarImagen(Salir, 750, 30);
+
         // Add the images to the window
         ventana.add(coche1);
         ventana.add(coche2);
@@ -49,6 +57,24 @@ public class Main {
         ventana.add(Titlle);
 
         ventana.add(Boton);
+
+        ventana.add(Salir);
+
+        Salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                try {
+                    Thread.sleep(100);
+                    System.exit(0);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
+
+        agregarEfectoHover(Salir, "images/exit_button.png", 0.4 , 0.43);
+        agregarEfectoClic(Salir, "images/exit_button.png", 0.4 , 0.43);
 
         agregarEfectoHover(Boton, "images/Boton_Empezar.png", 0.3 , 0.33);
         agregarEfectoClic(Boton, "images/Boton_Empezar.png", 0.3 , 0.35);
@@ -67,9 +93,13 @@ public class Main {
                 System.out.println("¡Carrera iniciada!");
                 // Create threads for each car
                 Thread car1Thread = new Thread(new Runcar(coche1, 50, 250));
+                coche1.setText("Coche 1");
                 Thread car2Thread = new Thread(new Runcar(coche2, 50, 320));
+                coche2.setText("Coche 2");
                 Thread car3Thread = new Thread(new Runcar(coche3, 50, 390));
+                coche3.setText("Coche 3");
                 Thread car4Thread = new Thread(new Runcar(coche4, 50, 470));
+                coche4.setText("Coche 4");
 
                 // Start the threads
                 car1Thread.start();

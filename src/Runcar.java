@@ -21,7 +21,7 @@ public class Runcar implements Runnable {
 
         while (currentX < FINISH_LINE && !hasWinner) {
             // Sumar un número aleatorio entre 1 y 6 al eje X
-            currentX += random.nextInt(9) + 1;
+            currentX += random.nextInt(10) + 6 ;
 
             // Actualizar posición del JLabel
             carLabel.setLocation(currentX, startY);
