@@ -9,7 +9,7 @@ public class Runcar implements Runnable {
     private static boolean hasWinner = false;
     private static final Object lock = new Object();
 
-    public Runcar(JLabel carLabel, int startX, int startY) {
+    public Runcar(JLabel carLabel, int startX, int initialX, int startY) {
         this.carLabel = carLabel;
         this.currentX = startX;
         this.startY = startY;
@@ -20,8 +20,7 @@ public class Runcar implements Runnable {
         Random random = new Random();
 
         while (currentX < FINISH_LINE && !hasWinner) {
-
-            currentX += random.nextInt(10) + 6 ;
+            currentX += random.nextInt(10) + 6;
 
             carLabel.setLocation(currentX, startY);
 
@@ -44,4 +43,7 @@ public class Runcar implements Runnable {
             System.out.println(carLabel.getText() + " : " + currentX);
         }
     }
+
+
+
 }

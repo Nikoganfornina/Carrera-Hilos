@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        //----------------------------------------------
         JFrame ventana = new JFrame("Window");
 
         ventana.setLayout(null);
@@ -14,7 +16,10 @@ public class Main {
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ensure the window closes properly
         ventana.setUndecorated(true);
 
+        //----------------------------------------------
+
         // Resize the images
+
         ImageIcon setcoche1 = redimensionarImagen("images/car1.png", 0.22);
         ImageIcon setcoche2 = redimensionarImagen("images/car2.png", 0.2);
         ImageIcon setcoche3 = redimensionarImagen("images/car3.png", 0.2);
@@ -26,6 +31,10 @@ public class Main {
 
         ImageIcon setTittle = redimensionarImagen("images/Tittle.png", 0.8);
 
+        ImageIcon Botonapso3 = redimensionarImagen("images/Restart_Button.png", 0.3);
+
+        //----------------------------------------------
+
         JLabel coche1 = new JLabel(setcoche1);
         JLabel coche2 = new JLabel(setcoche2);
         JLabel coche3 = new JLabel(setcoche3);
@@ -36,6 +45,11 @@ public class Main {
         JLabel Boton = new JLabel(Botonapso);
 
         JLabel Salir = new JLabel(Botonapso2);
+
+        JLabel Restart = new JLabel(Botonapso3);
+
+        //----------------------------------------------
+
 
         // Position the images
         posicionarImagen(coche1, 50, 250);
@@ -49,15 +63,22 @@ public class Main {
 
         posicionarImagen(Salir, 750, 30);
 
+        posicionarImagen(Restart, 400, 170);
+
+        //----------------------------------------------
+
+
         ventana.add(coche1);
         ventana.add(coche2);
         ventana.add(coche3);
         ventana.add(coche4);
         ventana.add(Titlle);
-
         ventana.add(Boton);
-
         ventana.add(Salir);
+        ventana.add(Restart);
+
+        //----------------------------------------------
+
 
         Salir.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -72,32 +93,22 @@ public class Main {
             }
         });
 
-        agregarEfectoHover(Salir, "images/exit_button.png", 0.4 , 0.43);
-        agregarEfectoClic(Salir, "images/exit_button.png", 0.4 , 0.43);
+        Restart.addMouseListener(new java.awt.event.MouseAdapter() {
 
-        agregarEfectoHover(Boton, "images/Boton_Empezar.png", 0.3 , 0.33);
-        agregarEfectoClic(Boton, "images/Boton_Empezar.png", 0.3 , 0.35);
-
-        agregarEfectoHover(Titlle, "images/Tittle.png", 0.8 , 0.85);
-        addBackground(ventana, "images/FONDO.png");
-
-        agregarEfectoHover(coche1, "images/car1.png", 0.22 , 0.23);
-        agregarEfectoHover(coche2, "images/car2.png", 0.2 , 0.22);
-        agregarEfectoHover(coche3, "images/car3.png", 0.2 , 0.22);
-        agregarEfectoHover(coche4, "images/car4.png", 0.2 , 0.22);
+        });
 
         Boton.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
                 System.out.println("¡Carrera iniciada!");
                 // Create threads for each car
-                Thread car1Thread = new Thread(new Runcar(coche1, 50, 250));
+                Thread car1Thread = new Thread(new Runcar(coche1, 50, 50, 250));
                 coche1.setText("Coche 1");
-                Thread car2Thread = new Thread(new Runcar(coche2, 50, 320));
+                Thread car2Thread = new Thread(new Runcar(coche2, 50, 50, 320));
                 coche2.setText("Coche 2");
-                Thread car3Thread = new Thread(new Runcar(coche3, 50, 390));
+                Thread car3Thread = new Thread(new Runcar(coche3, 50, 50, 390));
                 coche3.setText("Coche 3");
-                Thread car4Thread = new Thread(new Runcar(coche4, 50, 470));
+                Thread car4Thread = new Thread(new Runcar(coche4, 50, 50, 470));
                 coche4.setText("Coche 4");
 
                 // Start the threads
@@ -107,6 +118,31 @@ public class Main {
                 car4Thread.start();
             }
         });
+
+
+        //----------------------------------------------
+
+
+        agregarEfectoHover(Restart, "images/Restart_Button.png", 0.3, 0.33);
+        agregarEfectoClic(Restart, "images/Restart_Button.png", 0.3, 0.33);
+
+        agregarEfectoHover(Salir, "images/exit_button.png", 0.4, 0.43);
+        agregarEfectoClic(Salir, "images/exit_button.png", 0.4, 0.43);
+
+        agregarEfectoHover(Boton, "images/Boton_Empezar.png", 0.3, 0.33);
+        agregarEfectoClic(Boton, "images/Boton_Empezar.png", 0.3, 0.35);
+
+        agregarEfectoHover(Titlle, "images/Tittle.png", 0.8, 0.85);
+        addBackground(ventana, "images/FONDO.png");
+
+        agregarEfectoHover(coche1, "images/car1.png", 0.22, 0.23);
+        agregarEfectoHover(coche2, "images/car2.png", 0.2, 0.22);
+        agregarEfectoHover(coche3, "images/car3.png", 0.2, 0.22);
+        agregarEfectoHover(coche4, "images/car4.png", 0.2, 0.22);
+
+
+        //----------------------------------------------
+
 
         ventana.setVisible(true);
 
@@ -172,4 +208,5 @@ public class Main {
             }
         });
     }
+
 }
