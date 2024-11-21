@@ -11,6 +11,7 @@ public class Main {
         ventana.setSize(1000, 600);
         ventana.setResizable(false);
         ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ensure the window closes properly
+        ventana.setUndecorated(true);
 
         // Resize the images
         ImageIcon setcoche1 = redimensionarImagen("images/car1.png", 0.22);
@@ -59,6 +60,24 @@ public class Main {
         agregarEfectoHover(coche2, "images/car2.png", 0.2 , 0.22);
         agregarEfectoHover(coche3, "images/car3.png", 0.2 , 0.22);
         agregarEfectoHover(coche4, "images/car4.png", 0.2 , 0.22);
+
+        Boton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                System.out.println("¡Carrera iniciada!");
+                // Create threads for each car
+                Thread car1Thread = new Thread(new Runcar(coche1, 50, 250));
+                Thread car2Thread = new Thread(new Runcar(coche2, 50, 320));
+                Thread car3Thread = new Thread(new Runcar(coche3, 50, 390));
+                Thread car4Thread = new Thread(new Runcar(coche4, 50, 470));
+
+                // Start the threads
+                car1Thread.start();
+                car2Thread.start();
+                car3Thread.start();
+                car4Thread.start();
+            }
+        });
 
         // Make the window visible
         ventana.setVisible(true);
