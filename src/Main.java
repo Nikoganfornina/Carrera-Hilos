@@ -3,16 +3,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+
+    static JFrame ventanaVehiculos = new JFrame("Resultados");
+
+
     public static void main(String[] args) {
 
-          final int INITIAL_X = 50; // Todas empiezan en el mismo X
-          final int INITIAL_Y_COCHE1 = 250;
-          final int INITIAL_Y_COCHE2 = 320;
-          final int INITIAL_Y_COCHE3 = 390;
-          final int INITIAL_Y_COCHE4 = 470;
+        final int INITIAL_X = 50; // Todas empiezan en el mismo X
+        final int INITIAL_Y_COCHE1 = 250;
+        final int INITIAL_Y_COCHE2 = 320;
+        final int INITIAL_Y_COCHE3 = 390;
+        final int INITIAL_Y_COCHE4 = 470;
+
 
         //----------------------------------------------
-        JFrame ventana = new JFrame("Window");
+        JFrame ventana = new JFrame("Threads By Niko");
+
 
         ventana.setLayout(null);
 
@@ -40,6 +46,8 @@ public class Main {
 
         ImageIcon Botonapso3 = redimensionarImagen("images/Restart_Button.png", 0.3);
 
+        ImageIcon Linea = redimensionarImagen("Images/End_Line.png", 0.49);
+
         //----------------------------------------------
 
         JLabel coche1 = new JLabel(setcoche1);
@@ -55,6 +63,7 @@ public class Main {
 
         JLabel Restart = new JLabel(Botonapso3);
 
+        JLabel LineaFinal = new JLabel(Linea);
         //----------------------------------------------
 
 
@@ -72,6 +81,8 @@ public class Main {
 
         posicionarImagen(Restart, 400, 170);
 
+        posicionarImagen(LineaFinal, 870, 280);
+
         //----------------------------------------------
 
 
@@ -83,6 +94,10 @@ public class Main {
         ventana.add(Boton);
         ventana.add(Salir);
         ventana.add(Restart);
+        ventana.add(LineaFinal);
+
+        JFrame ventana2 = new JFrame("Threads By Niko");
+
 
         //----------------------------------------------
 
@@ -122,13 +137,13 @@ public class Main {
                 System.out.println("¡Carrera iniciada!");
                 // Create threads for each car
                 Thread car1Thread = new Thread(new Runcar(coche1, 50, 50, 250));
-                coche1.setText("Coche 1");
+                coche1.setText("COCHE AZUL   ");
                 Thread car2Thread = new Thread(new Runcar(coche2, 50, 50, 320));
-                coche2.setText("Coche 2");
+                coche2.setText("COCHE MORADO ");
                 Thread car3Thread = new Thread(new Runcar(coche3, 50, 50, 390));
-                coche3.setText("Coche 3");
+                coche3.setText("COCHE BLANCO ");
                 Thread car4Thread = new Thread(new Runcar(coche4, 50, 50, 470));
-                coche4.setText("Coche 4");
+                coche4.setText("COCHE ROJO   ");
 
                 // Start the threads
                 car1Thread.start();
@@ -164,6 +179,7 @@ public class Main {
 
 
         ventana.setVisible(true);
+
 
     }
 
@@ -227,8 +243,14 @@ public class Main {
             }
         });
     }
+
     private static void resetearPosiciones(JLabel coche, int x, int y) {
         coche.setLocation(x, y);
     }
 
+
+
+
+
 }
+

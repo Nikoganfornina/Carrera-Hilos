@@ -3,7 +3,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Random;
+import java.util.*;
 
 public class Runcar implements Runnable {
     private JLabel carLabel;
@@ -44,7 +44,19 @@ public class Runcar implements Runnable {
             }
         }
         synchronized (lock) {
-            System.out.println(carLabel.getText() + " : " + currentX);
+            Map<String, Integer> puntajes = new HashMap<>();
+            puntajes.put(carLabel.getText(), Integer.valueOf(currentX));
+
+            //ORDENA LOS COCHES POR PUNTAJE
+
+            List<Map.Entry<String, Integer>> cochesOrdenados = new ArrayList<>(puntajes.entrySet());
+            cochesOrdenados.sort(Map.Entry.comparingByValue());
+
+
+
+            for (Map.Entry<String, Integer> coche : cochesOrdenados) {
+                System.out.println(coche.getKey() + " : " + coche.getValue());
+            }
         }
     }
 }
