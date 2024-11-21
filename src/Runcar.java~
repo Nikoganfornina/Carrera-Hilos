@@ -12,7 +12,7 @@ public class Runcar implements Runnable {
     private static final int FINISH_LINE = 850;
     private static boolean hasWinner = false;
     private static final Object lock = new Object();
-    static boolean carreraActiva = true; // Aquí se define
+    private static boolean carreraActiva = true; // Aquí se define
 
     public Runcar(JLabel carLabel, int startX, int initialX, int startY) {
         this.carLabel = carLabel;

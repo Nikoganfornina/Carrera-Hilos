@@ -103,16 +103,19 @@ public class Main {
         Restart.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                Runcar.carreraActiva = true; // Reinicia la carrera
-                System.out.println("Carrera reiniciada.");
+                System.out.println("¡Reiniciando carrera!");
 
-                // Resetear las posiciones de los coches
-                coche1.setLocation(50, 250);
-                coche2.setLocation(50, 320);
-                coche3.setLocation(50, 390);
-                coche4.setLocation(50, 470);
+                // Detener carrera
+                carreraActiva = false;
 
-                // Podrías lanzar nuevos hilos aquí si es necesario
+                // Resetear las posiciones iniciales
+                resetearPosiciones(coche1, INITIAL_X, INITIAL_Y_COCHE1);
+                resetearPosiciones(coche2, INITIAL_X, INITIAL_Y_COCHE2);
+                resetearPosiciones(coche3, INITIAL_X, INITIAL_Y_COCHE3);
+                resetearPosiciones(coche4, INITIAL_X, INITIAL_Y_COCHE4);
+
+                // Permitir que la carrera se vuelva a iniciar
+                hasWinner = false;
             }
         });
 
