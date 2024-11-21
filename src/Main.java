@@ -5,6 +5,8 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
+        DatabaseManager.crearBaseDeDatos();  // Crear la base de datos y tabla
+        DatabaseManager.guardarPartidaGanada("Coche 1", 120);
         //----------------------------------------------
         JFrame ventana = new JFrame("Window");
 

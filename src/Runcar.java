@@ -1,4 +1,8 @@
 import javax.swing.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Random;
 
 public class Runcar implements Runnable {
@@ -9,6 +13,7 @@ public class Runcar implements Runnable {
     private static boolean hasWinner = false;
     private static final Object lock = new Object();
 
+
     public Runcar(JLabel carLabel, int startX, int initialX, int startY) {
         this.carLabel = carLabel;
         this.currentX = startX;
@@ -18,6 +23,7 @@ public class Runcar implements Runnable {
     @Override
     public void run() {
         Random random = new Random();
+        long startTime = System.currentTimeMillis();
 
         while (currentX < FINISH_LINE && !hasWinner) {
             currentX += random.nextInt(10) + 6;
@@ -35,6 +41,8 @@ public class Runcar implements Runnable {
                     hasWinner = true;
                     System.out.println("¡Tenemos un ganador!");
                     System.out.println("Posiciones finales:");
+
+                    Stats.mostrarVictorias();
                 }
             }
         }
@@ -43,6 +51,7 @@ public class Runcar implements Runnable {
             System.out.println(carLabel.getText() + " : " + currentX);
         }
     }
+
 
 
 
