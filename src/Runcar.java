@@ -10,25 +10,22 @@ public class Runcar implements Runnable {
     private static final Object lock = new Object();
     static boolean carreraActiva = true;
 
-    // Lista estática para almacenar las posiciones finales (sin repeticiones)
     static final Map<String, Integer> posicionesFinales = new HashMap<>();
 
-    // Tiempo del inicio
-    private long startTime;
-
-    public Runcar(JLabel carLabel, int startX, int initialX, int startY) {
+    public Runcar(JLabel carLabel, int startX, int initialX, int startY ) {
         this.carLabel = carLabel;
         this.currentX = startX;
         this.startY = startY;
+
     }
 
     @Override
     public void run() {
+
         Random random = new Random();
-        startTime = System.currentTimeMillis();  // Guardar el tiempo de inicio
 
         while (currentX < FINISH_LINE && carreraActiva) {
-            currentX += random.nextInt(10) + 6;
+            currentX += random.nextInt(10) + 6;  // Movimiento aleatorio
 
             carLabel.setLocation(currentX, startY);
 
@@ -39,19 +36,34 @@ public class Runcar implements Runnable {
             }
 
             synchronized (lock) {
-                // Cuando un coche cruza la meta por primera vez, registra el tiempo y el ganador
-                if (currentX >= FINISH_LINE && !hasWinner) {
-                    long endTime = System.currentTimeMillis();  // Tiempo al llegar a la meta
-                    long timeTaken = endTime - startTime;  // Tiempo en milisegundos
+                // Registrar el resultado solo si el coche cruza la línea por primera vez
+                if (currentX >= FINISH_LINE && !posicionesFinales.containsKey(carLabel.getText())) {
+                    posicionesFinales.put(carLabel.getText(), currentX);
 
-                    hasWinner = true;  // Marca al primer coche que cruza la meta como ganador
-                    carreraActiva = false;  // Detiene la carrera
+                }
 
-                    // Mostrar los resultados
-                    SwingUtilities.invokeLater(() -> {
-                        ResultadosFrame.mostrarResultados(carLabel.getText(), timeTaken);
-                    });
-                    System.out.println(carLabel.getText() + " ha cruzado la meta en " + timeTaken + " ms");
+                // Verificar si alguien ganó la carrera
+                if (!hasWinner && currentX >= FINISH_LINE) {
+                    hasWinner = true;
+                    carreraActiva = false;  // Detener la carrera para los demás
+                    System.out.println("¡Tenemos un ganador!");
+                }
+
+                // Si la carrera ha terminado y hay resultados
+                if (!carreraActiva && posicionesFinales.size() > 0) {
+                    List<Map.Entry<String, Integer>> resultadosOrdenados = new ArrayList<>(posicionesFinales.entrySet());
+                    resultadosOrdenados.sort((a, b) -> b.getValue() - a.getValue());  // Ordenar por posición
+
+                    // Obtener el ganador (primera posición) y su tiempo
+                    String ganador = resultadosOrdenados.get(0).getKey();
+                    Integer tiempo = resultadosOrdenados.get(0).getValue();  // Tiempo (posición final en X)
+
+
+
+
+                    // Usar SwingUtilities para invocar el método de la interfaz de usuario
+                    SwingUtilities.invokeLater(() -> ResultadosFrame.mostrarResultados(ganador, tiempo));
+
                 }
             }
         }
