@@ -1,8 +1,4 @@
 import javax.swing.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.*;
 
 public class Runcar implements Runnable {
@@ -10,9 +6,15 @@ public class Runcar implements Runnable {
     private int currentX;
     private int startY;
     private static final int FINISH_LINE = 850;
-    private static boolean hasWinner = false;
+    static boolean hasWinner = false;
     private static final Object lock = new Object();
     static boolean carreraActiva = true;
+
+    // Lista estática para almacenar las posiciones finales (sin repeticiones)
+    static final Map<String, Integer> posicionesFinales = new HashMap<>();
+
+    // Tiempo del inicio
+    private long startTime;
 
     public Runcar(JLabel carLabel, int startX, int initialX, int startY) {
         this.carLabel = carLabel;
@@ -23,6 +25,7 @@ public class Runcar implements Runnable {
     @Override
     public void run() {
         Random random = new Random();
+        startTime = System.currentTimeMillis();  // Guardar el tiempo de inicio
 
         while (currentX < FINISH_LINE && carreraActiva) {
             currentX += random.nextInt(10) + 6;
@@ -36,33 +39,21 @@ public class Runcar implements Runnable {
             }
 
             synchronized (lock) {
+                // Cuando un coche cruza la meta por primera vez, registra el tiempo y el ganador
                 if (currentX >= FINISH_LINE && !hasWinner) {
-                    hasWinner = true;
-                    carreraActiva = false; // Detener la carrera para los demás
-                    System.out.println("¡Tenemos un ganador!");
+                    long endTime = System.currentTimeMillis();  // Tiempo al llegar a la meta
+                    long timeTaken = endTime - startTime;  // Tiempo en milisegundos
+
+                    hasWinner = true;  // Marca al primer coche que cruza la meta como ganador
+                    carreraActiva = false;  // Detiene la carrera
+
+                    // Mostrar los resultados
+                    SwingUtilities.invokeLater(() -> {
+                        ResultadosFrame.mostrarResultados(carLabel.getText(), timeTaken);
+                    });
+                    System.out.println(carLabel.getText() + " ha cruzado la meta en " + timeTaken + " ms");
                 }
-            }
-        }
-        synchronized (lock) {
-            Map<String, Integer> puntajes = new HashMap<>();
-            puntajes.put(carLabel.getText(), Integer.valueOf(currentX));
-
-            //order the carslist by score
-
-            List<Map.Entry<String, Integer>> cochesOrdenados = new ArrayList<>(puntajes.entrySet());
-            cochesOrdenados.sort(Map.Entry.comparingByValue());
-
-
-
-            for (Map.Entry<String, Integer> coche : cochesOrdenados) {
-                System.out.println(coche.getKey() + " : " + coche.getValue());
             }
         }
     }
 }
-
-
-
-
-
-

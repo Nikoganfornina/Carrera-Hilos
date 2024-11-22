@@ -4,7 +4,6 @@ import java.awt.*;
 
 public class Main {
 
-    static JFrame ventanaVehiculos = new JFrame("Resultados");
 
 
     public static void main(String[] args) {
@@ -95,11 +94,9 @@ public class Main {
         ventana.add(Restart);
         ventana.add(LineaFinal);
 
-        JFrame ventana2 = new JFrame("Threads By Niko");
 
 
         //----------------------------------------------
-
 
         Salir.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
@@ -117,16 +114,18 @@ public class Main {
         Restart.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
-                Runcar.carreraActiva = true; // Reinicia la carrera
+                // Reinicia las variables estáticas de la carrera
+                Runcar.carreraActiva = true; // Permitir que la carrera se ejecute
+                Runcar.hasWinner = false; // Reinicia el estado del ganador
+                Runcar.posicionesFinales.clear(); // Borra los resultados de la carrera anterior
+
                 System.out.println("Carrera reiniciada.");
 
-                // Resetear las posiciones de los coches
+                // Resetear las posiciones iniciales de los coches
                 coche1.setLocation(50, 250);
                 coche2.setLocation(50, 320);
                 coche3.setLocation(50, 390);
                 coche4.setLocation(50, 470);
-
-                // Podrías lanzar nuevos hilos aquí si es necesario
             }
         });
 
@@ -214,7 +213,7 @@ public class Main {
         frame.add(backgroundLabel);
     }
 
-    public static void agregarEfectoHover(JLabel label, String rutaImagen, double porcentajeOriginal, double porcentajeHover) {
+     static void agregarEfectoHover(JLabel label, String rutaImagen, double porcentajeOriginal, double porcentajeHover) {
         label.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent e) {
@@ -229,7 +228,7 @@ public class Main {
     }
 
     // Método para cambiar el tamaño al hacer clic
-    public static void agregarEfectoClic(JLabel label, String rutaImagen, double porcentajeOriginal, double porcentajeClic) {
+     static void agregarEfectoClic(JLabel label, String rutaImagen, double porcentajeOriginal, double porcentajeClic) {
         label.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent e) {
