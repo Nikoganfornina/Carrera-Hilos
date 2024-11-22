@@ -9,23 +9,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        final int INITIAL_X = 50; // Todas empiezan en el mismo X
+        final int INITIAL_X = 50;
         final int INITIAL_Y_COCHE1 = 250;
         final int INITIAL_Y_COCHE2 = 320;
         final int INITIAL_Y_COCHE3 = 390;
         final int INITIAL_Y_COCHE4 = 470;
 
-
         //----------------------------------------------
-        JFrame ventana = new JFrame("Threads By Niko");
 
+        JFrame ventana = new JFrame("Threads By Niko");
 
         ventana.setLayout(null);
 
         ventana.setLocation(300, 150);
         ventana.setSize(1000, 600);
         ventana.setResizable(false);
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Ensure the window closes properly
+        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         ventana.setUndecorated(true);
 
 

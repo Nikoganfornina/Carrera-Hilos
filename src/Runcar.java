@@ -12,7 +12,7 @@ public class Runcar implements Runnable {
     private static final int FINISH_LINE = 850;
     private static boolean hasWinner = false;
     private static final Object lock = new Object();
-    static boolean carreraActiva = true; // Aquí se define
+    static boolean carreraActiva = true;
 
     public Runcar(JLabel carLabel, int startX, int initialX, int startY) {
         this.carLabel = carLabel;
@@ -47,7 +47,7 @@ public class Runcar implements Runnable {
             Map<String, Integer> puntajes = new HashMap<>();
             puntajes.put(carLabel.getText(), Integer.valueOf(currentX));
 
-            //ORDENA LOS COCHES POR PUNTAJE
+            //order the carslist by score
 
             List<Map.Entry<String, Integer>> cochesOrdenados = new ArrayList<>(puntajes.entrySet());
             cochesOrdenados.sort(Map.Entry.comparingByValue());
