@@ -1,10 +1,12 @@
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Main {
 
-
+    private static final ArrayList<JLabel> cochesOrdenados = new ArrayList<>();
+    private static final ArrayList<Long> tiemposCoches = new ArrayList<>();  // Para almacenar los tiempos de los coches
 
     public static void main(String[] args) {
 
@@ -13,6 +15,8 @@ public class Main {
         final int INITIAL_Y_COCHE2 = 320;
         final int INITIAL_Y_COCHE3 = 390;
         final int INITIAL_Y_COCHE4 = 470;
+
+
 
         //----------------------------------------------
 
@@ -82,8 +86,6 @@ public class Main {
         posicionarImagen(LineaFinal, 870, 280);
 
         //----------------------------------------------
-
-
         ventana.add(coche1);
         ventana.add(coche2);
         ventana.add(coche3);
@@ -135,13 +137,13 @@ public class Main {
                 System.out.println("¡Carrera iniciada!");
                 // Create threads for each car
                 Thread car1Thread = new Thread(new Runcar(coche1, 50, 50, 250));
-                coche1.setText("COCHE AZUL   ");
+                coche1.setText("COCHE AZUL  ");
                 Thread car2Thread = new Thread(new Runcar(coche2, 50, 50, 320));
-                coche2.setText("COCHE MORADO ");
+                coche2.setText("COCHE MORADO");
                 Thread car3Thread = new Thread(new Runcar(coche3, 50, 50, 390));
-                coche3.setText("COCHE BLANCO ");
+                coche3.setText("COCHE BLANCO");
                 Thread car4Thread = new Thread(new Runcar(coche4, 50, 50, 470));
-                coche4.setText("COCHE ROJO   ");
+                coche4.setText("COCHE ROJO  ");
 
                 // Start the threads
                 car1Thread.start();
@@ -175,7 +177,7 @@ public class Main {
 
         //----------------------------------------------
 
-        
+
         ventana.setVisible(true);
 
 
@@ -244,6 +246,38 @@ public class Main {
 
     private static void resetearPosiciones(JLabel coche, int x, int y) {
         coche.setLocation(x, y);
+    }
+    private static synchronized void cocheLlegado(JLabel coche, long tiempo) {
+        cochesOrdenados.add(coche); // Añadir el coche al ArrayList en el orden de llegada
+        tiemposCoches.add(tiempo);  // Guardar el tiempo del coche llegado
+
+        // Si todos los coches han llegado, procesar los resultados
+        if (cochesOrdenados.size() == 4) {
+            System.out.println("Carrera terminada. Resultados:");
+            for (int i = 0; i < cochesOrdenados.size(); i++) {
+                System.out.println((i + 1) + ". " + cochesOrdenados.get(i).getText() + " - Tiempo: " + tiemposCoches.get(i) + " ms");
+            }
+
+            // Mostrar los resultados en el nuevo Frame
+            mostrarResultados();
+        }
+    }
+
+    // Método para mostrar los resultados
+    private static void mostrarResultados() {
+        // Encontrar el ganador
+        long tiempoGanador = tiemposCoches.get(0);
+        int ganadorIndex = 0;
+
+        for (int i = 1; i < tiemposCoches.size(); i++) {
+            if (tiemposCoches.get(i) < tiempoGanador) {
+                tiempoGanador = tiemposCoches.get(i);
+                ganadorIndex = i;
+            }
+        }
+
+        String ganador = cochesOrdenados.get(ganadorIndex).getText();
+        ResultadosFrame.mostrarResultados(ganador, tiempoGanador);
     }
 
 

@@ -21,12 +21,11 @@ public class ResultadosFrame {
         ImageIcon imagenRedimensionada = redimensionarImagen(agregarfondo, 1.8);  // Redimensionar a un 180%
         addBack(imagenRedimensionada);
 
-
         JPanel panelResultados = new JPanel();
         panelResultados.setLayout(null);
         panelResultados.setOpaque(false);
 
-        JLabel etiqueta = new JLabel("¡" + ganador + "ha ganado!");
+        JLabel etiqueta = new JLabel("¡" + ganador + " ha ganado!");
         etiqueta.setFont(new Font("Monospace", Font.BOLD, 26));
         etiqueta.setForeground(Color.black);
         etiqueta.setBounds(70, 100, 400, 50);
@@ -37,8 +36,6 @@ public class ResultadosFrame {
         tiempoLabel.setForeground(Color.black);  // Color blanco
         tiempoLabel.setBounds(180, 160, 400, 50);
         panelResultados.add(tiempoLabel);
-
-
 
         JButton botonCerrar = new JButton("Cerrar");
         botonCerrar.addActionListener(e -> ventanaResultados.setVisible(false));
@@ -55,7 +52,6 @@ public class ResultadosFrame {
 
     // Método para agregar el fondo con la imagen redimensionada
     private static void addBack(ImageIcon imagen) {
-
         JLabel fondo = new JLabel(imagen);
         fondo.setBounds(0, 0, 500, 500);
         JPanel panelFondo = new JPanel(null);
@@ -82,6 +78,4 @@ public class ResultadosFrame {
 
         return new ImageIcon(imagenRedimensionada);
     }
-
-
 }
