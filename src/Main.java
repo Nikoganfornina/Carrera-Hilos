@@ -17,7 +17,6 @@ public class Main {
         final int INITIAL_Y_COCHE4 = 470;
 
 
-
         //----------------------------------------------
 
         JFrame ventana = new JFrame("Threads By Niko");
@@ -56,6 +55,8 @@ public class Main {
         JLabel coche2 = new JLabel(setcoche2);
         JLabel coche3 = new JLabel(setcoche3);
         JLabel coche4 = new JLabel(setcoche4);
+
+
 
         JLabel Titlle = new JLabel(setTittle);
 
@@ -97,7 +98,6 @@ public class Main {
         ventana.add(LineaFinal);
 
 
-
         //----------------------------------------------
 
         Salir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,22 +134,35 @@ public class Main {
         Boton.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent e) {
+
                 System.out.println("¡Carrera iniciada!");
                 // Create threads for each car
                 Thread car1Thread = new Thread(new Runcar(coche1, 50, 50, 250));
                 coche1.setText("COCHE AZUL  ");
+                cochesOrdenados.add(coche1) ;
+
                 Thread car2Thread = new Thread(new Runcar(coche2, 50, 50, 320));
                 coche2.setText("COCHE MORADO");
+                cochesOrdenados.add(coche2) ;
+
                 Thread car3Thread = new Thread(new Runcar(coche3, 50, 50, 390));
                 coche3.setText("COCHE BLANCO");
+                cochesOrdenados.add(coche3) ;
+
                 Thread car4Thread = new Thread(new Runcar(coche4, 50, 50, 470));
                 coche4.setText("COCHE ROJO  ");
+                cochesOrdenados.add(coche4) ;
+
 
                 // Start the threads
                 car1Thread.start();
                 car2Thread.start();
                 car3Thread.start();
                 car4Thread.start();
+
+                
+
+
             }
         });
 
@@ -230,7 +243,7 @@ public class Main {
     }
 
     // Método para cambiar el tamaño al hacer clic
-     static void agregarEfectoClic(JLabel label, String rutaImagen, double porcentajeOriginal, double porcentajeClic) {
+    static void agregarEfectoClic(JLabel label, String rutaImagen, double porcentajeOriginal, double porcentajeClic) {
         label.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mousePressed(java.awt.event.MouseEvent e) {
@@ -247,23 +260,7 @@ public class Main {
     private static void resetearPosiciones(JLabel coche, int x, int y) {
         coche.setLocation(x, y);
     }
-    private static synchronized void cocheLlegado(JLabel coche, long tiempo) {
-        cochesOrdenados.add(coche); // Añadir el coche al ArrayList en el orden de llegada
-        tiemposCoches.add(tiempo);  // Guardar el tiempo del coche llegado
 
-        // Si todos los coches han llegado, procesar los resultados
-        if (cochesOrdenados.size() == 4) {
-            System.out.println("Carrera terminada. Resultados:");
-            for (int i = 0; i < cochesOrdenados.size(); i++) {
-                System.out.println((i + 1) + ". " + cochesOrdenados.get(i).getText() + " - Tiempo: " + tiemposCoches.get(i) + " ms");
-            }
-
-            // Mostrar los resultados en el nuevo Frame
-            mostrarResultados();
-        }
-    }
-
-    // Método para mostrar los resultados
     private static void mostrarResultados() {
         // Encontrar el ganador
         long tiempoGanador = tiemposCoches.get(0);

@@ -39,6 +39,7 @@ public class Runcar implements Runnable {
                 // Registrar el resultado solo si el coche cruza la línea por primera vez
                 if (currentX >= FINISH_LINE && !posicionesFinales.containsKey(carLabel.getText())) {
                     posicionesFinales.put(carLabel.getText(), currentX);
+                    System.out.println("Coche " + carLabel.getText() + " llego en " + currentX + " ms");
 
                 }
 
